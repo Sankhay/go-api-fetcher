@@ -1,10 +1,8 @@
-package controllers
+package weather
 
 import (
-	"log"
 	"net/http"
 
-	"github.com/Sankhay/go-api-fetcher/api"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,10 +10,13 @@ func GetCityWeatherByName(c *gin.Context) {
 
 	cityName := c.Param("city")
 
-	weatherResponse, err := api.GetCityWeatherByName(cityName)
+	weatherResponse, err := getCityWeatherByNameService(cityName)
 
 	if err != nil {
-		log.Fatalf(err.Error())
+		c.JSON(err.Code, gin.H{
+			"message": err.Error(),
+		})
+		return
 	}
 
 	c.JSON(http.StatusOK, weatherResponse)

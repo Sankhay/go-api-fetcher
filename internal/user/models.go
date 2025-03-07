@@ -1,12 +1,4 @@
-package api
-
-import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"log"
-	"net/http"
-)
+package user
 
 type Geo struct {
 	Lat string `json:"lat"`
@@ -36,30 +28,4 @@ type User struct {
 	Phone    string  `json:"phone"`
 	Website  string  `json:"website"`
 	Company  Company `json:"company"`
-}
-
-func GetUserById(userId string) (User, error) {
-	link := fmt.Sprintf("https://jsonplaceholder.typicode.com/users/%s", userId)
-
-	resp, err := http.Get(link)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var user User
-
-	if err := json.Unmarshal(body, &user); err != nil {
-		log.Fatal(err)
-	}
-
-	return user, nil
 }

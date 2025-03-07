@@ -1,13 +1,17 @@
-package api
+package weather
 
-import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"log"
-	"net/http"
-	"os"
-)
+type RequestError struct {
+	code    int
+	message string
+}
+
+func (r *RequestError) Code() int {
+	return r.code
+}
+
+func (r *RequestError) Error() string {
+	return r.message
+}
 
 type Coord struct {
 	Lon float64 `json:"lon"`
@@ -63,33 +67,4 @@ type WeatherResponse struct {
 	ID         int       `json:"id"`
 	Name       string    `json:"name"`
 	Cod        int       `json:"cod"`
-}
-
-var openWeatherApiKey string = os.Getenv("OPEN_WEALTH_API_KEY")
-
-func GetCityWeatherByName(cityName string) (WeatherResponse, error) {
-
-	link := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", cityName, openWeatherApiKey)
-
-	resp, err := http.Get(link)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var weatherResponse WeatherResponse
-
-	if err := json.Unmarshal(body, &weatherResponse); err != nil {
-		log.Fatal(err)
-	}
-
-	return weatherResponse, nil
 }
