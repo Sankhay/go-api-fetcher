@@ -7,6 +7,6 @@ import (
 )
 
 func StartRoutes(r *gin.Engine) {
-	r.GET("/api/weather/:city", weather.GetCityWeatherByName)
-	r.GET("/api/user/:id", user.GetUserById)
+	r.GET("/api/weather/:city", weather.GetCityWeatherByNameControllers)
+	r.GET("/api/user/:id", user.GetUserByIdControllers)
 }

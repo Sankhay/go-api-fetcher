@@ -11,14 +11,13 @@ import (
 )
 
 func getUserByIdService(userId string) (*User, *models.NetworkError) {
-	link := fmt.Sprintf("https://jsonplaceholder.typicode.com/users/%s", userId)
+	link := fmt.Sprintf("%s/users/%s", jsonPlaceholderApiLink, userId)
 
 	resp, err := http.Get(link)
 
 	if err != nil {
 		log.Println(err)
-		networkError := models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
-		return nil, &networkError
+		return nil, &models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
 	}
 
 	defer resp.Body.Close()
@@ -27,18 +26,14 @@ func getUserByIdService(userId string) (*User, *models.NetworkError) {
 
 	if err != nil {
 		log.Println(err)
-		networkError := models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
-		return nil, &networkError
+		return nil, &models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
 	}
 
 	var user User
 
-	print(string(body))
-
 	if err := json.Unmarshal(body, &user); err != nil {
-		log.Fatal(err)
-		networkError := models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
-		return nil, &networkError
+		log.Println(err)
+		return nil, &models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
 	}
 
 	return &user, nil

@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetUserById(c *gin.Context) {
+func GetUserByIdControllers(c *gin.Context) {
 	userId := c.Param("id")
 
 	userIdInt, err := strconv.Atoi(userId)
@@ -19,7 +19,7 @@ func GetUserById(c *gin.Context) {
 		return
 	}
 
-	if userIdInt < 1 || userIdInt > 10 {
+	if userIdInt < minIdRange || userIdInt > maxIdRange {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "id must be between 1 and 10",
 		})

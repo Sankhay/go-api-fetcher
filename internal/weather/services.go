@@ -6,36 +6,19 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/Sankhay/go-api-fetcher/models"
 )
 
-var openWeatherApiKey string
-
-func Init() {
-
-	openWeatherApiKey = os.Getenv("OPEN_WEATHER_API_KEY")
-
-	if openWeatherApiKey == "" {
-		log.Fatal("OPEN_WEATHER_API_KEY in .env is required to run the application.")
-	}
-}
-
 func getCityWeatherByNameService(cityName string) (*WeatherResponse, *models.NetworkError) {
 
-	fmt.Println(openWeatherApiKey)
-
-	link := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", cityName, openWeatherApiKey)
-
-	fmt.Println(link)
+	link := fmt.Sprintf("%s/data/2.5/weather?q=%s&appid=%s&units=metric&lang=pt_br", openWeatherApiLink, cityName, openWeatherApiKey)
 
 	resp, err := http.Get(link)
 
 	if err != nil {
-		log.Print(err)
-		var networkError models.NetworkError = models.NetworkError{Code: 500, Msg: err.Error()}
-		return nil, &networkError
+		log.Println(err)
+		return nil, &models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
 	}
 
 	defer resp.Body.Close()
@@ -43,9 +26,8 @@ func getCityWeatherByNameService(cityName string) (*WeatherResponse, *models.Net
 	body, err := io.ReadAll(resp.Body)
 
 	if err != nil {
-		log.Print(err)
-		var networkError models.NetworkError = models.NetworkError{Code: 500, Msg: err.Error()}
-		return nil, &networkError
+		log.Println(err)
+		return nil, &models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
 	}
 
 	if resp.StatusCode != http.StatusOK {
@@ -55,21 +37,18 @@ func getCityWeatherByNameService(cityName string) (*WeatherResponse, *models.Net
 		}
 
 		if err := json.Unmarshal(body, &bodyError); err != nil {
-			log.Print(err)
-			var networkError models.NetworkError = models.NetworkError{Code: 500, Msg: err.Error()}
-			return nil, &networkError
+			log.Println(err)
+			return nil, &models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
 		}
 
-		var networkError models.NetworkError = models.NetworkError{Code: resp.StatusCode, Msg: bodyError.Message}
-		return nil, &networkError
+		return nil, &models.NetworkError{Code: resp.StatusCode, Msg: bodyError.Message}
 	}
 
 	var weatherResponse WeatherResponse
 
 	if err := json.Unmarshal(body, &weatherResponse); err != nil {
 		log.Print(err)
-		var networkError models.NetworkError = models.NetworkError{Code: resp.StatusCode, Msg: err.Error()}
-		return nil, &networkError
+		return nil, &models.NetworkError{Code: http.StatusInternalServerError, Msg: err.Error()}
 	}
 
 	return &weatherResponse, nil

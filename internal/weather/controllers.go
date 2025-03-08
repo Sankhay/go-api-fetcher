@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetCityWeatherByName(c *gin.Context) {
+func GetCityWeatherByNameControllers(c *gin.Context) {
 
 	cityName := c.Param("city")
 
