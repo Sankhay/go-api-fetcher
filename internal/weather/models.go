@@ -1,24 +1,11 @@
 package weather
 
-type RequestError struct {
-	code    int
-	message string
-}
-
-func (r *RequestError) Code() int {
-	return r.code
-}
-
-func (r *RequestError) Error() string {
-	return r.message
-}
-
 type Coord struct {
 	Lon float64 `json:"lon"`
 	Lat float64 `json:"lat"`
 }
 
-type Weather struct {
+type Condition struct {
 	ID          int    `json:"id"`
 	Main        string `json:"main"`
 	Description string `json:"description"`
@@ -53,18 +40,18 @@ type Sys struct {
 	Sunset  int    `json:"sunset"`
 }
 
-type WeatherResponse struct {
-	Coord      Coord     `json:"coord"`
-	Weather    []Weather `json:"weather"`
-	Base       string    `json:"base"`
-	Main       Main      `json:"main"`
-	Visibility int       `json:"visibility"`
-	Wind       Wind      `json:"wind"`
-	Clouds     Clouds    `json:"clouds"`
-	Dt         int       `json:"dt"`
-	Sys        Sys       `json:"sys"`
-	Timezone   int       `json:"timezone"`
-	ID         int       `json:"id"`
-	Name       string    `json:"name"`
-	Cod        int       `json:"cod"`
+type Weather struct {
+	Coord      Coord       `json:"coord"`
+	Condition  []Condition `json:"weather"`
+	Base       string      `json:"base"`
+	Main       Main        `json:"main"`
+	Visibility int         `json:"visibility"`
+	Wind       Wind        `json:"wind"`
+	Clouds     Clouds      `json:"clouds"`
+	Dt         int         `json:"dt"`
+	Sys        Sys         `json:"sys"`
+	Timezone   int         `json:"timezone"`
+	ID         int         `json:"id"`
+	Name       string      `json:"name"`
+	Cod        int         `json:"cod"`
 }

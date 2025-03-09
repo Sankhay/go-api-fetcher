@@ -29,3 +29,10 @@ type User struct {
 	Website  string  `json:"website"`
 	Company  Company `json:"company"`
 }
+
+type CreateUser struct {
+	Id       int    `json:"id"`
+	Name     string `json:"name" binding:"required"`
+	Nickname string `json:"nickname" binding:"required"`
+	Email    string `json:"email" binding:"required,email"`
+}

@@ -2,7 +2,6 @@ package weather
 
 import (
 	"net/http"
-	"net/http/httptest"
 	"testing"
 
 	"github.com/Sankhay/go-api-fetcher/tests"
@@ -26,12 +25,7 @@ func TestGetWeatherByCityNameControllers(t *testing.T) {
 }
 
 func testGetWeatherByCityNameControllersOK(t *testing.T, r *gin.Engine) {
-
-	w := httptest.NewRecorder()
-
-	req, _ := http.NewRequest("GET", "/weather/London", nil)
-
-	r.ServeHTTP(w, req)
+	w, _ := tests.PerformTestGetRequest(r, "/weather/London")
 
 	assert.Equal(t, http.StatusOK, w.Code)
 }

@@ -1,10 +1,10 @@
 package models
 
-type NetworkError struct {
-	Code int
-	Msg  string
+type HttpError struct {
+	Code int    `json:"code"`
+	Msg  string `json:"message"`
 }
 
-func (n *NetworkError) Error() string {
+func (n *HttpError) Error() string {
 	return n.Msg
 }

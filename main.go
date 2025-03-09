@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/Sankhay/go-api-fetcher/config"
 	"github.com/Sankhay/go-api-fetcher/routes"
 	"github.com/gin-gonic/gin"
@@ -14,5 +16,5 @@ func main() {
 
 	routes.StartRoutes(r)
 
-	r.Run(":8000")
+	r.Run(fmt.Sprintf(":%s", config.Port))
 }

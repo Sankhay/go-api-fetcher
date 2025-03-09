@@ -10,14 +10,12 @@ func GetCityWeatherByNameControllers(c *gin.Context) {
 
 	cityName := c.Param("city")
 
-	weatherResponse, err := getCityWeatherByNameService(cityName)
+	weather, networkError := getCityWeatherByNameServices(cityName)
 
-	if err != nil {
-		c.JSON(err.Code, gin.H{
-			"message": err.Error(),
-		})
+	if networkError != nil {
+		c.JSON(networkError.Code, networkError)
 		return
 	}
 
-	c.JSON(http.StatusOK, weatherResponse)
+	c.JSON(http.StatusOK, weather)
 }

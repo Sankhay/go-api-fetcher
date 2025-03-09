@@ -9,4 +9,5 @@ import (
 func StartRoutes(r *gin.Engine) {
 	r.GET("/api/weather/:city", weather.GetCityWeatherByNameControllers)
 	r.GET("/api/user/:id", user.GetUserByIdControllers)
+	r.POST("/api/user/create", user.CreateUserControllers)
 }

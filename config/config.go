@@ -7,6 +7,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
+const Port = "8000"
+
 func Init() {
 	err := godotenv.Load()
 
