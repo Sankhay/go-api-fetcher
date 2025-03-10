@@ -12,7 +12,7 @@ Antes de começar, certifique-se de ter:
 - **Go** instalado (versão **1.23.4**).
 Caso não tenha, você pode baixá-lo em https://go.dev/.
 - Uma **API Key** do OpenWeather.
-Caso não tenha, você pode baixá-lo em https://openweathermap.org/
+Caso não tenha, você pode obter em https://openweathermap.org/
 
 ## Instalação
 
@@ -23,7 +23,7 @@ Crie um arquivo `.env` na raiz do projeto e adicione sua chave da API do OpenWea
 ```ini
 OPEN_WEATHER_API_KEY=SuaChaveAqui
 ```
-Crie outro arquivo em `/tests/tests.env` e adicione a chave da API
+Crie outro arquivo em `/tests/tests.env` e adicione a chave da API de teste:
 ```ini
 OPEN_WEATHER_API_KEY=SuaChaveAqui
 ```
