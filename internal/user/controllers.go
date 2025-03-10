@@ -24,10 +24,10 @@ func GetUserByIdControllers(c *gin.Context) {
 		return
 	}
 
-	user, networkError := getUserByIdServices(userId)
+	user, httpError := getUserByIdServices(userId)
 
-	if networkError != nil {
-		c.JSON(networkError.Code, networkError)
+	if httpError != nil {
+		c.JSON(httpError.Code, httpError)
 		return
 	}
 
@@ -51,10 +51,10 @@ func CreateUserControllers(c *gin.Context) {
 		return
 	}
 
-	userCreated, networkError := createUserServices(createUser)
+	userCreated, httpError := createUserServices(createUser)
 
-	if networkError != nil {
-		c.JSON(networkError.Code, networkError)
+	if httpError != nil {
+		c.JSON(httpError.Code, httpError)
 		return
 	}
 

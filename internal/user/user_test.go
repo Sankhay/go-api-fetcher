@@ -44,23 +44,23 @@ func testGetUserByIdControllersValidationsInvalidIdRange(t *testing.T, r *gin.En
 	w, body := tests.PerformTestGetRequest(r, fmt.Sprintf("/users/%s", strconv.Itoa(minIdRange-1)))
 	w2, body2 := tests.PerformTestGetRequest(r, fmt.Sprintf("/users/%s", strconv.Itoa(maxIdRange+1)))
 
-	networkError := models.HttpError{Code: http.StatusBadRequest, Msg: fmt.Sprintf(`id must be between %s and %s`, strconv.Itoa(minIdRange), strconv.Itoa(maxIdRange))}
-	networkErrorJson, _ := json.Marshal(networkError)
+	httpError := models.HttpError{Code: http.StatusBadRequest, Msg: fmt.Sprintf(`id must be between %s and %s`, strconv.Itoa(minIdRange), strconv.Itoa(maxIdRange))}
+	httpErrorJson, _ := json.Marshal(httpError)
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
-	assert.JSONEq(t, string(networkErrorJson), body)
+	assert.JSONEq(t, string(httpErrorJson), body)
 
 	assert.Equal(t, http.StatusBadRequest, w2.Code)
-	assert.JSONEq(t, string(networkErrorJson), body2)
+	assert.JSONEq(t, string(httpErrorJson), body2)
 }
 
 func testGetUserByIdControllersValidationsInvalidIdType(t *testing.T, r *gin.Engine) {
 	w, body := tests.PerformTestGetRequest(r, "/users/test")
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
-	networkError := models.HttpError{Code: http.StatusBadRequest, Msg: fmt.Sprintf(`id must be a int from %s to %s`, strconv.Itoa(minIdRange), strconv.Itoa(maxIdRange))}
-	networkErrorJson, _ := json.Marshal(networkError)
-	assert.JSONEq(t, string(networkErrorJson), body)
+	httpError := models.HttpError{Code: http.StatusBadRequest, Msg: fmt.Sprintf(`id must be a int from %s to %s`, strconv.Itoa(minIdRange), strconv.Itoa(maxIdRange))}
+	httpErrorJson, _ := json.Marshal(httpError)
+	assert.JSONEq(t, string(httpErrorJson), body)
 }
 
 func TestCreateUser(t *testing.T) {
@@ -104,9 +104,9 @@ func testCreateUserValidationsNameAndNicknameEquals(t *testing.T, r *gin.Engine)
 	w, body := tests.PerformTestPostRequest(r, "/users/create", userTest)
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
-	networkError := models.HttpError{Code: http.StatusBadRequest, Msg: "Name and nickname cannot be the same"}
-	networkErrorJson, _ := json.Marshal(networkError)
-	assert.JSONEq(t, string(networkErrorJson), body)
+	httpError := models.HttpError{Code: http.StatusBadRequest, Msg: "Name and nickname cannot be the same"}
+	httpErrorJson, _ := json.Marshal(httpError)
+	assert.JSONEq(t, string(httpErrorJson), body)
 }
 
 func testCreateUserValidationsEmail(t *testing.T, r *gin.Engine) {
@@ -114,9 +114,9 @@ func testCreateUserValidationsEmail(t *testing.T, r *gin.Engine) {
 	w, body := tests.PerformTestPostRequest(r, "/users/create", userTest)
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
-	networkError := models.HttpError{Code: http.StatusBadRequest, Msg: "The field 'Email' must be a valid email address. "}
-	networkErrorJson, _ := json.Marshal(networkError)
-	assert.JSONEq(t, string(networkErrorJson), body)
+	httpError := models.HttpError{Code: http.StatusBadRequest, Msg: "The field 'Email' must be a valid email address. "}
+	httpErrorJson, _ := json.Marshal(httpError)
+	assert.JSONEq(t, string(httpErrorJson), body)
 }
 
 func testCreateUserValidationsNicknameNecessary(t *testing.T, r *gin.Engine) {
@@ -124,9 +124,9 @@ func testCreateUserValidationsNicknameNecessary(t *testing.T, r *gin.Engine) {
 	w, body := tests.PerformTestPostRequest(r, "/users/create", userTest)
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
-	networkError := models.HttpError{Code: http.StatusBadRequest, Msg: "The field 'Nickname' is required. "}
-	networkErrorJson, _ := json.Marshal(networkError)
-	assert.JSONEq(t, string(networkErrorJson), body)
+	httpError := models.HttpError{Code: http.StatusBadRequest, Msg: "The field 'Nickname' is required. "}
+	httpErrorJson, _ := json.Marshal(httpError)
+	assert.JSONEq(t, string(httpErrorJson), body)
 }
 
 func testCreateUserValidationsNameNecessary(t *testing.T, r *gin.Engine) {
@@ -134,9 +134,9 @@ func testCreateUserValidationsNameNecessary(t *testing.T, r *gin.Engine) {
 	w, body := tests.PerformTestPostRequest(r, "/users/create", userTest)
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
-	networkError := models.HttpError{Code: http.StatusBadRequest, Msg: "The field 'Name' is required. "}
-	networkErrorJson, _ := json.Marshal(networkError)
-	assert.JSONEq(t, string(networkErrorJson), body)
+	httpError := models.HttpError{Code: http.StatusBadRequest, Msg: "The field 'Name' is required. "}
+	httpErrorJson, _ := json.Marshal(httpError)
+	assert.JSONEq(t, string(httpErrorJson), body)
 }
 
 func testCreateUserValidationsEmailNecessary(t *testing.T, r *gin.Engine) {
@@ -144,7 +144,7 @@ func testCreateUserValidationsEmailNecessary(t *testing.T, r *gin.Engine) {
 	w, body := tests.PerformTestPostRequest(r, "/users/create", userTest)
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
-	networkError := models.HttpError{Code: http.StatusBadRequest, Msg: "The field 'Email' is required. "}
-	networkErrorJson, _ := json.Marshal(networkError)
-	assert.JSONEq(t, string(networkErrorJson), body)
+	httpError := models.HttpError{Code: http.StatusBadRequest, Msg: "The field 'Email' is required. "}
+	httpErrorJson, _ := json.Marshal(httpError)
+	assert.JSONEq(t, string(httpErrorJson), body)
 }
