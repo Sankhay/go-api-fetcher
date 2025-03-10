@@ -107,6 +107,8 @@ go run .
 }
 ```
 
+Todos os campos são obrigatórios. O campo **email** deve conter um endereço válido, e **name** e **nickname** não podem ser iguais.
+
 #### Exemplo de Retorno:
 
 ```json
