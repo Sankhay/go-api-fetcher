@@ -57,9 +57,9 @@ func testGetUserByIdControllersValidationsInvalidIdRange(t *testing.T, r *gin.En
 func testGetUserByIdControllersValidationsInvalidIdType(t *testing.T, r *gin.Engine) {
 	w, body := tests.PerformTestGetRequest(r, "/users/test")
 
-	assert.Equal(t, http.StatusBadRequest, w.Code)
 	httpError := models.HttpError{Code: http.StatusBadRequest, Msg: fmt.Sprintf(`id must be a int from %s to %s`, strconv.Itoa(minIdRange), strconv.Itoa(maxIdRange))}
 	httpErrorJson, _ := json.Marshal(httpError)
+	assert.Equal(t, http.StatusBadRequest, w.Code)
 	assert.JSONEq(t, string(httpErrorJson), body)
 }
 

@@ -121,7 +121,7 @@ go run .
 }
 ```
 
-**Aviso:** A criação de usuário não cria um usuário de verdade. Os dados são apenas fictícios e retornados como exemplo, pois estamos utilizando a API de teste **JSONPlaceholder**.
+**Aviso:** A criação de usuário não cria um usuário de verdade. Os dados são apenas fictícios e retornados como exemplo, pois esta sendo utilizado a API de teste **JSONPlaceholder**.
 
 ### 2. Clima
 
@@ -180,3 +180,15 @@ go run .
     "cod": 200
 }
 ```
+
+## Retorno de Erro
+
+Em caso de erro, a API retornará um JSON com a seguinte estrutura:
+
+```json
+{
+    "code": 404,
+    "message": "API returned error for city test (Status 404): city not found"
+}
+```
+O campo code representa o código de status HTTP, enquanto message fornece uma descrição detalhada do erro ocorrido.
