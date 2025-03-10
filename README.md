@@ -23,7 +23,7 @@ Crie um arquivo `.env` na raiz do projeto e adicione sua chave da API do OpenWea
 ```ini
 OPEN_WEATHER_API_KEY=SuaChaveAqui
 ```
-Crie outro arquivo em `/tests/tests.env` e adicione a chave da API de teste:
+Crie outro arquivo em `/tests/.tests.env` e adicione a chave da API de teste:
 ```ini
 OPEN_WEATHER_API_KEY=SuaChaveAqui
 ```

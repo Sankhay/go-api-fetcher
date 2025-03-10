@@ -20,7 +20,7 @@ func SetupTestMode() *gin.Engine {
 
 	absPath := filepath.Dir(filename)
 
-	err := godotenv.Load(absPath + "/tests.env")
+	err := godotenv.Load(absPath + "/.tests.env")
 
 	if err != nil {
 		log.Fatal("Error loading tests.env file, it should be in tests/, ", err)
